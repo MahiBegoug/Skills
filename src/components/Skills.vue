@@ -4,6 +4,10 @@
      
       <form @submit.prevent="addSkill">
         <input type="text" placeholder="Enter a skill you have ..." v-model="skill" v-validate="'min:5'" name="skill" >
+      
+        <transition name="alert-in" enter-active-class="animated flipInX" leave-active-class="animated flipOutX">
+          <p class="alert" v-if="errors.has('skill')">{{ errors.first('skill') }}</p>
+        </transition>
       </form>
 
 
