@@ -1,9 +1,10 @@
 <template>
   <div class="hello">
     <div class="holder">
+      <form @submit.prevent="addSkill">
+        <input type="text" placeholder="Enter a skill you have ..." v-model="skill" v-validate="'min:5'" name="skill" >
+      </form>
 
-      <input type="text" placeholder="Enter a skill you have ..." v-model="skill">
-      {{  skill }}
       <ul>
         <li v-for="(data,index) in skills" :key="index">
           {{data.skill}}
@@ -30,8 +31,13 @@ export default {
   }
   },
   methods:{
-    changeName:function () {
-      return ""
+    addSkill() {
+          var skill = {skill:this.skill}
+          this.skills.push(skill)
+          this.skill=''
+        },
+    remove(id) {
+      this.skills.splice(id,1)
     }
   }
 }
@@ -71,6 +77,40 @@ export default {
     font-size:1.3em;
     background-color: #323333;
     color: #687F7F;
+  }
 
+  .alert{
+    background-color: #fdf2ce;
+    font-weight: bold;
+    display: inline-block;
+    padding: 5px;
+    margin-top: -20px;
+  }
+
+  .alert-in-enter-active {
+    animation: bounce-in .5s;
+  }
+  .alert-in-leave-active {
+    animation:bounce-in .5s;
+  }
+  .alert-in-leave-active {
+   animation: bounce-in .5s reverse;
+  }
+
+  @keyframes bounce-in {
+    0% {
+      transform: scale(0);
+    }
+    50% {
+      transform: scale(1.5);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  i {
+    float: right;
+    cursor: pointer;
   }
 </style>
