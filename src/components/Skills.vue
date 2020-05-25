@@ -1,15 +1,22 @@
 <template>
   <div class="hello">
     <div class="holder">
+     
       <form @submit.prevent="addSkill">
         <input type="text" placeholder="Enter a skill you have ..." v-model="skill" v-validate="'min:5'" name="skill" >
       </form>
 
+
       <ul>
-        <li v-for="(data,index) in skills" :key="index">
-          {{data.skill}}
-        </li>
+        <transition-group name="list" enter-active-class="animated bounceInUp" leave-active-class="animated bounceOutDown">
+          <li v-for="(data,index) in skills" :key="index">
+             {{data.skill}}
+             <i class="fa fa-minus-circle" v-on:click="remove(index)"></i>
+          </li>
+        </transition-group>
+        
       </ul>
+
       <p>These are the skills that you possess.</p>
     </div>
   </div>
